@@ -1,10 +1,10 @@
+import TableCourse from "./component/TableCourse";
 import "./App.css";
-import TableGrid from "./component/TableGrid";
 
 function App() {
   return (
     <div>
-      <TableGrid />
+      <TableCourse />
     </div>
   );
 }
