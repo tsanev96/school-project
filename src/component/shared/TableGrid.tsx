@@ -10,12 +10,7 @@ interface ITableGrid extends HTMLClass {
   firstColSpan?: number;
 }
 
-const useStyles = makeStyles({
-  item: {
-    padding: "10px 15px",
-    textAlign: "left",
-  },
-});
+const useStyles = makeStyles({});
 
 const TableGrid: FC<ITableGrid> = ({
   headValues,
@@ -43,19 +38,14 @@ const TableGrid: FC<ITableGrid> = ({
   ) => {
     const element = elements.find((el) => el.id === id);
     return (
-      <Grid
-        className={classes.item}
-        item
-        xs={getColSpan(index, firstColSpan)}
-        key={id}
-      >
+      <Grid item xs={getColSpan(index, firstColSpan)} key={id}>
         {element?.label || element?.value || ""}
       </Grid>
     );
   };
 
   const renderTableTopPart = () => (
-    <Grid container item>
+    <Grid className={className} container item>
       {colsHeaderIds.map((id, index) => (
         <>{renderCell(id, headValues, index)}</>
       ))}
@@ -65,7 +55,7 @@ const TableGrid: FC<ITableGrid> = ({
     </Grid>
   );
 
-  return <Box className={className}>{renderTableTopPart()}</Box>;
+  return <Box>{renderTableTopPart()}</Box>;
 };
 
 export default TableGrid;

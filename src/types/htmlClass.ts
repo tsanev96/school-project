@@ -1,3 +1,3 @@
 export type HTMLClass = {
-  className: string;
+  className?: string;
 };
