@@ -1,8 +1,22 @@
-import { Box, Grid } from "@mui/material";
 import { FC } from "react";
+import { Grid } from "@mui/material";
+import { HTMLClass } from "../types/htmlClass";
+import { makeStyles } from "@mui/styles";
 
-const CouseEvaluation = () => {
+interface IProps extends HTMLClass {}
+
+const useStyles = makeStyles({
+  rightColItem: {
+    // border: "1px solid black",
+    "& > *": {
+      // borderBottom: "1px solid black",
+    },
+  },
+});
+
+const TableCourseEvaluation: FC<IProps> = ({ className }) => {
   const data = {};
+  const classes = useStyles();
 
   const types = [
     "Midterm exam",
@@ -17,11 +31,16 @@ const CouseEvaluation = () => {
 
   const numberData = [1, 2, 3, 4, 5, 6, 7, 8];
 
-  const ratioData = [10, 20, 30, 40, 50];
+  const ratioData = [10, 20, 30, 40, 50, 60, 70];
 
   const renderColumn = (items: string[] | number[], title: string) => {
     return (
-      <Grid direction="column" container xs={3}>
+      <Grid
+        className={classes.rightColItem}
+        direction="column"
+        container
+        xs={4}
+      >
         <Grid item>{title}</Grid>
         {items.map((item) => (
           <Grid key={item} item>
@@ -31,9 +50,10 @@ const CouseEvaluation = () => {
       </Grid>
     );
   };
+
   return (
     <Grid container>
-      <Grid xs={4} item>
+      <Grid xs={4} container alignItems="center" item>
         Course Evaluation
       </Grid>
       <Grid xs={8} item>
@@ -47,4 +67,4 @@ const CouseEvaluation = () => {
   );
 };
 
-export default CouseEvaluation;
+export default TableCourseEvaluation;
