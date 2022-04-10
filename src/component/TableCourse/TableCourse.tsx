@@ -1,9 +1,9 @@
-import { Head, Body } from "../types/table";
 import TableTop from "./TableTop";
 import { makeStyles } from "@mui/styles";
-import { Box, Grid } from "@mui/material";
+import { Box } from "@mui/material";
 import TableCourseEvaluation from "./TableCourseEvaluation";
 import TableMid from "./TableMid";
+import Outcomes from "./Outcomes";
 
 const useStyles = makeStyles({
   root: {
@@ -15,9 +15,6 @@ const useStyles = makeStyles({
     "& > *": {
       padding: "7px 10px",
       textAlign: "left",
-      // borderBottom: "1px solid black",
-      // borderLeft: "1px solid black",
-      // borderRight: "1px solid black",
     },
   },
 });
@@ -29,6 +26,7 @@ const TableCourse = () => {
       <TableTop />
       <TableMid />
       <TableCourseEvaluation />
+      <Outcomes />
     </Box>
   );
 };

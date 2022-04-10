@@ -1,11 +1,10 @@
 import { FC } from "react";
 import { Box, Grid } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { Head, Body } from "../types/table";
-import { HTMLClass } from "../types/htmlClass";
-import { useTableCellStyles } from "./styles";
+import { Head, Body } from "../../types/table";
+import { useTableCellStyles } from "../styles";
 
-interface ITableGrid extends HTMLClass {}
+interface ITableGrid {}
 
 const useStyles = makeStyles({});
 
