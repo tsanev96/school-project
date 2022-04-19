@@ -69,61 +69,61 @@ export const data = [
   { id: "computerUsage", label: "Others", value: undefined },
 ];
 
-const outcomes = [
+export const outcomes = [
   {
     id: "a",
     label: "a",
-    value: 2,
+    value: "2",
   },
   {
     id: "b",
     label: "b",
-    value: 2,
+    value: "2",
   },
   {
     id: "c",
     label: "c",
-    value: 2,
+    value: "2",
   },
   {
     id: "d",
     label: "d",
-    value: 2,
+    value: "2",
   },
   {
     id: "e",
     label: "e",
-    value: 2,
+    value: "2",
   },
   {
     id: "f",
     label: "f",
-    value: 2,
+    value: "2",
   },
   {
     id: "g",
     label: "g",
-    value: 2,
+    value: "2",
   },
   {
     id: "h",
     label: "h",
-    value: 2,
+    value: "2",
   },
   {
     id: "i",
     label: "i",
-    value: 2,
+    value: "2",
   },
   {
     id: "j",
     label: "j",
-    value: 2,
+    value: "2",
   },
   {
     id: "k",
     label: "k",
-    value: 2,
+    value: "2",
   },
 ];
 

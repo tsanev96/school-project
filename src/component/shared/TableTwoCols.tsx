@@ -1,7 +1,8 @@
 import { Box, Grid, Typography } from "@mui/material";
+import { TableCell } from "../../types/tableCell";
 
 type IProps = {
-  data: { id: string; label: string; value: string | string[] }[];
+  data: TableCell[];
 };
 
 const TableTwoCols = ({ data }: IProps) => {
@@ -22,7 +23,7 @@ const TableTwoCols = ({ data }: IProps) => {
   return (
     <>
       {data.map((item) => (
-        <Grid container>
+        <Grid container alignItems="stretch">
           <Grid container alignContent="center" item xs={3}>
             {item.label}
           </Grid>

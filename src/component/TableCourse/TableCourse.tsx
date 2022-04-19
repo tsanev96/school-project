@@ -1,5 +1,7 @@
 import { Grid } from "@mui/material";
 import { makeStyles } from "@mui/styles";
+import { outcomes } from "../../data";
+import Outcomes from "../Outcomes/Outcomes";
 import TableTwoCols from "../shared/TableTwoCols";
 import TableTypeOne from "../shared/TableTypeOne";
 
@@ -10,8 +12,24 @@ const useStyles = makeStyles({
     width: 1200,
     fontSize: 16,
     border: "4px solid lightblue",
+    "& > *": {
+      border: "2px solid black",
+      borderBottom: "none",
+      // cell
+      "& > *": {
+        padding: "10px 15px",
+        borderRight: "2px solid black",
+      },
+      "& > *:last-child": {
+        borderRight: "none",
+      },
+    },
+    "& > *:last-child": {
+      borderBottom: "2px solid black",
+    },
   },
 });
+
 const TableCourse = () => {
   const classes = useStyles();
   const data = [
@@ -60,11 +78,19 @@ const TableCourse = () => {
   ];
 
   const dataTwoColsSecond = [
-    { id: "textbook", label: "Textbook", value: "" },
-    { id: "otherReferences", label: "Other References", value: "" },
-    { id: "laboratoryWork", label: "Laboratory Work", value: "" },
-    { id: "computerUsage", label: "Computer Usage", value: "" },
-    { id: "others", label: "Others", value: "" },
+    {
+      id: "textbook",
+      label: "Textbook",
+      value: ["Ozdikililer E., 2021, Publishing, Bulgaria"],
+    },
+    {
+      id: "otherReferences",
+      label: "Other References",
+      value: ["B R.G., C R.J.,, 2020, Cloud Systems.."],
+    },
+    { id: "laboratoryWork", label: "Laboratory Work", value: "11" },
+    { id: "computerUsage", label: "Computer Usage", value: "2" },
+    { id: "others", label: "Others", value: "3" },
   ];
 
   return (
@@ -72,6 +98,7 @@ const TableCourse = () => {
       <TableTypeOne data={data} />
       <TableTwoCols data={dataTwoCols} />
       <TableTwoCols data={dataTwoColsSecond} />
+      <Outcomes data={outcomes} />
     </Grid>
   );
 };
