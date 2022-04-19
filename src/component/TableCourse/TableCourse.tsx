@@ -49,6 +49,11 @@ const TableCourse = () => {
   ];
 
   const dataTwoCols = [
+    {
+      id: "faculty",
+      label: "Faculty",
+      value: "Technichal University of Sofia",
+    },
     { id: "departament", label: "Departament", value: "Software Computing" },
     { id: "language", label: "language", value: "English" },
     { id: "requiredElective", label: "requiredElective", value: "Required" },
@@ -96,7 +101,7 @@ const TableCourse = () => {
   return (
     <Grid className={classes.root} container>
       <TableTypeOne data={data} />
-      <TableTwoCols data={dataTwoCols} />
+      <TableTwoCols data={dataTwoCols} showAsAList />
       <TableTwoCols data={dataTwoColsSecond} />
       <Outcomes data={outcomes} />
     </Grid>

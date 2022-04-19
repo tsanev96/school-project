@@ -3,9 +3,10 @@ import { TableCell } from "../../types/tableCell";
 
 type IProps = {
   data: TableCell[];
+  showAsAList?: boolean;
 };
 
-const TableTwoCols = ({ data }: IProps) => {
+const TableTwoCols = ({ data, showAsAList }: IProps) => {
   const renderValues = (value: string | string[]) => {
     if (typeof value === "string") {
       return value;
@@ -13,8 +14,11 @@ const TableTwoCols = ({ data }: IProps) => {
 
     return (
       <Box>
-        {value.map((item) => (
-          <Typography key={item}>{item}</Typography>
+        {value.map((item, index) => (
+          <Typography key={item}>
+            {showAsAList && `${index + 1}. `}
+            {item}
+          </Typography>
         ))}
       </Box>
     );

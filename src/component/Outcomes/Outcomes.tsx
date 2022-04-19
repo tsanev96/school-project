@@ -4,7 +4,7 @@ import { TableCell } from "../../types/tableCell";
 
 const useStyles = makeStyles({
   cellWrapper: {
-    padding: 0,
+    padding: "0 !important",
     "& > *": {
       padding: 10,
       borderBottom: "1px solid black",
@@ -35,7 +35,7 @@ const Outcomes = ({ data }: IProps) => {
   };
   return (
     <Grid container alignItems="stretch">
-      <Grid item xs={3}>
+      <Grid container alignItems="center" item xs={3}>
         Outcomes
       </Grid>
       {data.map((item) => (
