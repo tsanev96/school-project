@@ -33,6 +33,7 @@ const Outcomes = ({ data }: IProps) => {
       </Grid>
     );
   };
+
   return (
     <Grid container alignItems="stretch">
       <Grid container alignItems="center" item xs={3}>
