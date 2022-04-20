@@ -1,8 +1,6 @@
 import { Grid } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { useEffect, useState } from "react";
 import { outcomes } from "../../data";
-import { useFetchHTTP } from "../../hooks/useFetchHTTP";
 import Outcomes from "../Outcomes/Outcomes";
 import TableTwoCols from "../shared/TableTwoCols";
 import TableTypeOne from "../shared/TableTypeOne";

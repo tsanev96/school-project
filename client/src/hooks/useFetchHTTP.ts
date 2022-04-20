@@ -10,7 +10,7 @@ export const useFetchHTTP = <T>(query: string, initialData: T) => {
     const fetchData = async () => {
       try {
         setIsLoading(true);
-        const { data } = await http.get(query);
+        const { data } = await http.get<T>(query);
         setData(data);
         setIsLoading(false);
       } catch (error) {
