@@ -1,16 +1,14 @@
 import { Schema, model } from "mongoose";
-import { facultySchema } from "./faculty";
-import UniversityName from "./universityName";
+import { IFacultySchema } from "./faculty";
 
 interface IUniversity {
   name: string;
-  // fix type
-  faculties: any[];
+  faculties: IFacultySchema;
 }
 
 export const universitySchema = new Schema<IUniversity>({
-  name: UniversityName,
-  faculties: [facultySchema],
+  name: { type: String, required: true },
+  faculties: { type: Array, required: true },
 });
 
 const University = model<IUniversity>("University", universitySchema);
