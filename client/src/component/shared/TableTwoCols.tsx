@@ -27,7 +27,7 @@ const TableTwoCols = ({ data, showAsAList }: IProps) => {
   return (
     <>
       {data.map((item) => (
-        <Grid container alignItems="stretch">
+        <Grid key={item.id} container alignItems="stretch">
           <Grid container alignContent="center" item xs={3}>
             {item.label}
           </Grid>

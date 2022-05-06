@@ -1,9 +1,11 @@
 import { Grid } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { outcomes } from "../../data";
+import { useFetchHTTP } from "../../hooks/useFetchHTTP";
 import Outcomes from "../Outcomes/Outcomes";
 import TableTwoCols from "../shared/TableTwoCols";
 import TableTypeOne from "../shared/TableTypeOne";
+import { IFacultySchema } from "../../../../server/src/models/faculty";
 
 const useStyles = makeStyles({
   root: {
@@ -30,10 +32,33 @@ const useStyles = makeStyles({
   },
 });
 
-const TableCourse = () => {
+const TableSemester = () => {
   const classes = useStyles();
 
-  const data = [
+  const { data, isLoading } = useFetchHTTP<IFacultySchema[]>("faculties", []);
+
+  // const major = data[0].major[0];
+
+  if (isLoading) {
+    return <div>still loading</div>;
+  }
+  const major = data[0].major[0];
+
+  const firstPart = [
+    {
+      id: "courseName",
+      ...major.courseName,
+    },
+    { id: "code", ...major.code },
+    { id: "courseType", ...major.courseType },
+    { id: "semester", ...major.semester },
+    { id: "credit", ...major.credit },
+    { id: "ects", ...major.ects },
+    { id: "Lecture", ...major.lecture },
+    { id: "recitation", ...major.recitation },
+    { id: "lab", ...major.lab },
+  ];
+  const data1 = [
     {
       id: "courseName",
       label: "Course Name",
@@ -101,7 +126,7 @@ const TableCourse = () => {
 
   return (
     <Grid className={classes.root} container>
-      <TableTypeOne data={data} />
+      <TableTypeOne data={firstPart} />
       <TableTwoCols data={dataTwoCols} showAsAList />
       <TableTwoCols data={dataTwoColsSecond} />
       <Outcomes data={outcomes} />
@@ -109,4 +134,4 @@ const TableCourse = () => {
   );
 };
 
-export default TableCourse;
+export default TableSemester;

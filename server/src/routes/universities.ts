@@ -24,8 +24,8 @@ router.post("/", async (req, res) => {
     "Медицински университет – София",
   ];
 
-  const fac: Model | null = await Faculty.findOne({
-    name: ",Филологически",
+  const fac = await Faculty.findOne({
+    name: "Филологически",
   });
 
   for (let i = 0; i < a.length; i++) {

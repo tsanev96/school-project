@@ -26,6 +26,7 @@ const TableTypeOne = ({ data }: IProps) => {
     <Grid container alignItems="stretch">
       {data.map((item, index) => (
         <Grid
+          key={item.id}
           className={classes.cellWrapper}
           item
           container

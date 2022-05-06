@@ -3,13 +3,12 @@ import http from "../network/http";
 
 export const useFetchHTTP = <T>(query: string, initialData: T) => {
   const [data, setData] = useState<T>(initialData);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setIsLoading(true);
         const { data } = await http.get<T>(query);
         setData(data);
         setIsLoading(false);

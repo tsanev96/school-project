@@ -1,45 +1,119 @@
 import express from "express";
-import Faculty from "../models/faculty";
-import University from "../models/university";
+import { SemesterData } from "../../../client/src/types/semester";
+import Faculty, { IFacultySchema } from "../models/faculty";
 
 const router = express.Router();
 
 router.get("/", async (req, res) => {
-  const faculties = [
-    { id: "TUS", label: "Technical University of Sofia" },
-    { id: "UNSS", label: "UNSS" },
-  ];
+  const faculties = await Faculty.find({});
 
   res.send(faculties);
 });
 
 router.post("/", async (req, res) => {
-  const a = [
-    ",Филологически",
-    ",Исторически",
-    ",Юридически",
-    ",Педагогически",
-    ",Стопански",
-    ",Философски",
-    ",Математика и информатика",
-    ",Православен богословски",
-    ",Факултет по изобразително изкуство",
-    ",Факултет „Навигационен",
-    ",Факултет „Инженерен",
-    ",Техника и строителни технологии в транспорта",
-    ",Комуникации и електрообзавеждане в транспорта",
-    ",Транспортен мениджмънт",
-    ",Медицински факултет",
-    ",Факултет по дентална медицина",
-    ",Фармацевтичен факултет",
-    ",Факултет по обществено здраве „Проф. д-р Цекомир Воденичаров, дмн“",
+  const a: IFacultySchema[] = [
+    {
+      name: "Технически",
+      major: [
+        {
+          courseName: {
+            label: "Course Name",
+            value: "Int. to Atmosphere science",
+          },
+          code: { label: "Code", value: "MTO111/E" },
+          courseType: { label: "Course Type", value: "ED" },
+          semester: { label: "Regular Semester", value: "1" },
+          credit: { label: "Credit", value: "2" },
+          ects: { label: "ECTS", value: "3" },
+          lecture: { label: "Lecture", value: "3" },
+          recitation: { label: "Recitation", value: "0" },
+          lab: { label: "lab", value: "0" },
+
+          faculty: {
+            label: "Faculty",
+            value: "Technichal University of Sofia",
+          },
+          departament: {
+            label: "Departament",
+            value: "Software Computing",
+          },
+          officeHours: {
+            label: "Office hours",
+            value:
+              "Please see instructor's office door for more updated information",
+          },
+          content: {
+            label: "Content",
+            value: "content",
+          },
+          objectives: {
+            label: "Objectives",
+            value: ["objective 1", "objective 2", "objective 3"],
+          },
+          courseEducationalOutcomes: {
+            label: "courseEducationalOutcomes",
+            value: [
+              "To able to comparison ",
+              "To be able to determine ",
+              "To be able to …",
+              "To be able to ",
+              "To be able to know",
+              "To calculate ",
+            ],
+          },
+          computerUsage: {
+            label: "Computer Usage",
+            value: "2",
+          },
+          laboratoryWork: {
+            label: "Laboratory Work",
+            value: "11",
+          },
+          otherReferences: {
+            label: "Other References",
+            value: ["B R.G., C R.J.,, 2020, Cloud Systems.."],
+          },
+          others: {
+            label: "Others",
+            value: "3",
+          },
+          textbook: {
+            label: "Textbook",
+            value: ["Ozdikililer E., 2021, Publishing, Bulgaria"],
+          },
+        },
+      ],
+    },
+    // { name: "Исторически", major: [{}] },
+    // { name: "Юридически", major: [{}] },
+    // { name: "Педагогически", major: [{}] },
+    // { name: "Стопански", major: [{}] },
+    // { name: "Философски", major: [{}] },
+    // { name: "Математика и информатика", major: [{}] },
+    // { name: "Православен богословски", major: [{}] },
+    // { name: "Факултет по изобразително изкуство", major: [{}] },
+    // { name: "Факултет „Навигационен", major: [{}] },
+    // { name: "Факултет „Инженерен", major: [{}] },
+    // { name: "Техника и строителни технологии в транспорта", major: [{}] },
+    // { name: "Комуникации и електрообзавеждане в транспорта", major: [{}] },
+    // { name: "Транспортен мениджмънт", major: [{}] },
+    // { name: "Медицински факултет", major: [{}] },
+    // { name: "Факултет по дентална медицина", major: [{}] },
+    // { name: "Фармацевтичен факултет", major: [{}] },
+    // {
+    //   name: "Факултет по обществено здраве „Проф. д-р Цекомир Воденичаров, дмн“",
+    //   major: [{}],
+    // },
   ];
 
   for (let i = 0; i < a.length; i++) {
     const faculty = new Faculty({
-      name: a[i],
+      name: a[i].name,
+      major: [...a[i].major],
     });
-    await faculty.save();
+    await faculty.save().catch((err) => {
+      console.log("error here", err);
+    });
   }
 
   res.send("set faculties");
