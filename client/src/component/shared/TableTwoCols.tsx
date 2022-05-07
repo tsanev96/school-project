@@ -32,7 +32,7 @@ const TableTwoCols = ({ data, showAsAList }: IProps) => {
             {item.label}
           </Grid>
           <Grid item xs={9}>
-            {renderValues(item.value)}
+            {renderValues(item.value || "")}
           </Grid>
         </Grid>
       ))}

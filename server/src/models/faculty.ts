@@ -1,9 +1,10 @@
-import { Schema, model, Types } from "mongoose";
+import { Schema, model } from "mongoose";
 import { SemesterData } from "../../../client/src/types/semester";
 
 export interface IFacultySchema {
   name: string;
-  major: SemesterData[];
+  information: SemesterData[];
+  major: { label: string; value: string };
 }
 
 const valueString = { label: String, value: String };
@@ -11,10 +12,10 @@ const valueArray = { label: String, value: [String] };
 
 export const FacultySchema = new Schema<IFacultySchema>({
   name: { type: String, required: true },
-  major: [
+  major: valueString,
+  information: [
     {
       code: valueString,
-      courseName: valueString,
       courseType: valueString,
       credit: valueString,
       ects: valueString,
@@ -30,6 +31,12 @@ export const FacultySchema = new Schema<IFacultySchema>({
       officeHours: valueString,
       textbook: valueArray,
       otherReferences: valueArray,
+      courseName: valueString,
+      language: valueString,
+      requiredElective: valueString,
+      laboratoryWork: valueString,
+      computerUsage: valueString,
+      others: valueString,
     },
   ],
 });

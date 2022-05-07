@@ -14,10 +14,14 @@ router.post("/", async (req, res) => {
   const a: IFacultySchema[] = [
     {
       name: "Технически",
-      major: [
+      major: {
+        label: "Course Name",
+        value: "Int. to Atmosphere science",
+      },
+      information: [
         {
           courseName: {
-            label: "Course Name",
+            label: "courseName",
             value: "Int. to Atmosphere science",
           },
           code: { label: "Code", value: "MTO111/E" },
@@ -28,7 +32,6 @@ router.post("/", async (req, res) => {
           lecture: { label: "Lecture", value: "3" },
           recitation: { label: "Recitation", value: "0" },
           lab: { label: "lab", value: "0" },
-
           faculty: {
             label: "Faculty",
             value: "Technichal University of Sofia",
@@ -81,6 +84,14 @@ router.post("/", async (req, res) => {
             label: "Textbook",
             value: ["Ozdikililer E., 2021, Publishing, Bulgaria"],
           },
+          language: {
+            label: "Language",
+            value: "English",
+          },
+          requiredElective: {
+            label: "Required Elective",
+            value: "Required",
+          },
         },
       ],
     },
@@ -109,7 +120,8 @@ router.post("/", async (req, res) => {
   for (let i = 0; i < a.length; i++) {
     const faculty = new Faculty({
       name: a[i].name,
-      major: [...a[i].major],
+      information: [...a[i].information],
+      major: a[i].major,
     });
     await faculty.save().catch((err) => {
       console.log("error here", err);

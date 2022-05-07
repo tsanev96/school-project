@@ -42,93 +42,63 @@ const TableSemester = () => {
   if (isLoading) {
     return <div>still loading</div>;
   }
-  const major = data[0].major[0];
+  const information = data[0].information[0];
+  const major = data[0].major;
 
-  const firstPart = [
-    {
-      id: "courseName",
-      ...major.courseName,
-    },
-    { id: "code", ...major.code },
-    { id: "courseType", ...major.courseType },
-    { id: "semester", ...major.semester },
-    { id: "credit", ...major.credit },
-    { id: "ects", ...major.ects },
-    { id: "Lecture", ...major.lecture },
-    { id: "recitation", ...major.recitation },
-    { id: "lab", ...major.lab },
-  ];
-  const data1 = [
-    {
-      id: "courseName",
-      label: "Course Name",
-      value: "Int. to Atmosphere science",
-    },
-    { id: "code", label: "Code", value: "MTO111/E" },
-    { id: "courseType", label: "Course Type", value: "ED" },
-    { id: "semester", label: "Regular Semester", value: "1" },
-    { id: "credit", label: "Credit", value: "2" },
-    { id: "ects", label: "ECTS", value: "3" },
-    { id: "Lecture", label: "Lecture", value: "3" },
-    { id: "recitation", label: "Recitation", value: "0" },
-    { id: "lab", label: "lab", value: "0" },
+  const col1 = [
+    { id: "courseName", ...information.courseName },
+    { id: "code", ...information.code },
+    { id: "courseType", ...information.courseType },
+    { id: "semester", ...information.semester },
+    { id: "credit", ...information.credit },
+    { id: "ects", ...information.ects },
+    { id: "Lecture", ...information.lecture },
+    { id: "recitation", ...information.recitation },
+    { id: "lab", ...information.lab },
   ];
 
-  const dataTwoCols = [
+  const col2 = [
     {
       id: "faculty",
-      label: "Faculty",
-      value: "Technichal University of Sofia",
+      ...information.faculty,
     },
-    { id: "departament", label: "Departament", value: "Software Computing" },
-    { id: "language", label: "language", value: "English" },
-    { id: "requiredElective", label: "requiredElective", value: "Required" },
+    { id: "departament", ...information.departament },
+    { id: "language", ...information.language },
+    { id: "requiredElective", ...information.requiredElective },
     {
       id: "Office hours",
-      label: "Office hours",
-      value: "Please see instructor's office door for more updated information",
+      ...information.officeHours,
     },
-    { id: "content", label: "Content", value: "content" },
+    { id: "content", ...information.content },
     {
       id: "Objectives",
-      label: "Objectives",
-      value: ["objective 1", "objective 2", "objective 3"],
+      ...information.objectives,
     },
     {
       id: "courseEducationalOutcomes",
-      label: "courseEducationalOutcomes",
-      value: [
-        "To able to comparison ",
-        "To be able to determine ",
-        "To be able to …",
-        "To be able to ",
-        "To be able to know",
-        "To calculate ",
-      ],
+      ...information.courseEducationalOutcomes,
     },
   ];
 
-  const dataTwoColsSecond = [
+  const col3 = [
     {
       id: "textbook",
-      label: "Textbook",
-      value: ["Ozdikililer E., 2021, Publishing, Bulgaria"],
+      ...information.textbook,
     },
     {
       id: "otherReferences",
-      label: "Other References",
-      value: ["B R.G., C R.J.,, 2020, Cloud Systems.."],
+      ...information.otherReferences,
     },
-    { id: "laboratoryWork", label: "Laboratory Work", value: "11" },
-    { id: "computerUsage", label: "Computer Usage", value: "2" },
-    { id: "others", label: "Others", value: "3" },
+    { id: "laboratoryWork", ...information.laboratoryWork },
+    { id: "computerUsage", ...information.computerUsage },
+    { id: "others", ...information.others },
   ];
 
   return (
     <Grid className={classes.root} container>
-      <TableTypeOne data={firstPart} />
-      <TableTwoCols data={dataTwoCols} showAsAList />
-      <TableTwoCols data={dataTwoColsSecond} />
+      <TableTypeOne data={col1} />
+      <TableTwoCols data={col2} showAsAList />
+      <TableTwoCols data={col3} />
       <Outcomes data={outcomes} />
     </Grid>
   );

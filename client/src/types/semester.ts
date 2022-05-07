@@ -18,7 +18,9 @@ type SemesterIdNames =
   | "otherReferences"
   | "laboratoryWork"
   | "computerUsage"
-  | "others";
+  | "others"
+  | "requiredElective"
+  | "language";
 
 export type SemesterData = {
   [key in SemesterIdNames]: { label: string; value: string | string[] };
