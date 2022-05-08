@@ -13,6 +13,9 @@ import { makeStyles } from "@mui/styles";
 import { NavLink } from "react-router-dom";
 
 const useStyles = makeStyles({
+  root: {
+    marginBottom: 40,
+  },
   logo: {
     "&.root": {
       fontWeight: "bold",
@@ -35,7 +38,7 @@ const Header = () => {
   ];
 
   return (
-    <AppBar position="static">
+    <AppBar className={classes.root} position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography variant="h6" noWrap component="div" sx={{ mr: 2 }}>

@@ -1,13 +1,13 @@
 import { FC } from "react";
 import { useParams } from "react-router-dom";
-import { Grid } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { outcomes } from "../../data";
 import Outcomes from "../Outcomes/Outcomes";
 import TableTwoCols from "../shared/TableTwoCols";
 import TableTypeOne from "../shared/TableTypeOne";
 import { SemesterData } from "../../types/semester";
-import AccessibilityNewIcon from "@mui/icons-material/AccessibilityNew";
+
 const useStyles = makeStyles({
   root: {
     margin: "0 auto",
@@ -39,7 +39,6 @@ interface ITableSemester {
 
 const TableSemester: FC<ITableSemester> = ({ data }) => {
   const classes = useStyles();
-  const params = useParams();
 
   const col1 = [
     { id: "courseName", ...data.courseName },
@@ -95,7 +94,6 @@ const TableSemester: FC<ITableSemester> = ({ data }) => {
       <TableTypeOne data={col1} />
       <TableTwoCols data={col2} showAsAList />
       <TableTwoCols data={col3} />
-      <AccessibilityNewIcon />
       <Outcomes data={outcomes} />
     </Grid>
   );
