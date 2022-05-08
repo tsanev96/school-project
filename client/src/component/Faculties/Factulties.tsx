@@ -1,11 +1,12 @@
-import { useFetchHTTP } from "../../hooks/useFetchHTTP";
-import { Faculty } from "../../types/faculty";
+import { FacultiesContext } from "../../context/faculties";
 import ListItems from "../shared/ListItems";
 
 const Faculties = () => {
-  const { data } = useFetchHTTP<Faculty[]>("faculties", []);
-
-  return <ListItems data={data} />;
+  return (
+    <FacultiesContext.Consumer>
+      {(data) => <ListItems data={data} />}
+    </FacultiesContext.Consumer>
+  );
 };
 
 export default Faculties;

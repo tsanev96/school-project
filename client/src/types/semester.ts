@@ -23,5 +23,8 @@ type SemesterIdNames =
   | "language";
 
 export type SemesterData = {
-  [key in SemesterIdNames]: { label: string; value: string | string[] };
+  [key in SemesterIdNames]: {
+    label: string;
+    value: string | number | string[];
+  };
 };

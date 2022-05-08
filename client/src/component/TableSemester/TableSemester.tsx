@@ -1,19 +1,20 @@
+import { FC } from "react";
+import { useParams } from "react-router-dom";
 import { Grid } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { outcomes } from "../../data";
-import { useFetchHTTP } from "../../hooks/useFetchHTTP";
 import Outcomes from "../Outcomes/Outcomes";
 import TableTwoCols from "../shared/TableTwoCols";
 import TableTypeOne from "../shared/TableTypeOne";
-import { IFacultySchema } from "../../../../server/src/models/faculty";
-
+import { SemesterData } from "../../types/semester";
+import AccessibilityNewIcon from "@mui/icons-material/AccessibilityNew";
 const useStyles = makeStyles({
   root: {
     margin: "0 auto",
     padding: 10,
     width: 1200,
     fontSize: 16,
-    border: "4px solid lightblue",
+    // border: "4px solid lightblue",
     "& > *": {
       border: "2px solid black",
       borderBottom: "none",
@@ -32,66 +33,61 @@ const useStyles = makeStyles({
   },
 });
 
-const TableSemester = () => {
+interface ITableSemester {
+  data: SemesterData;
+}
+
+const TableSemester: FC<ITableSemester> = ({ data }) => {
   const classes = useStyles();
-
-  const { data, isLoading } = useFetchHTTP<IFacultySchema[]>("faculties", []);
-
-  // const major = data[0].major[0];
-
-  if (isLoading) {
-    return <div>still loading</div>;
-  }
-  const information = data[0].information[0];
-  const major = data[0].major;
+  const params = useParams();
 
   const col1 = [
-    { id: "courseName", ...information.courseName },
-    { id: "code", ...information.code },
-    { id: "courseType", ...information.courseType },
-    { id: "semester", ...information.semester },
-    { id: "credit", ...information.credit },
-    { id: "ects", ...information.ects },
-    { id: "Lecture", ...information.lecture },
-    { id: "recitation", ...information.recitation },
-    { id: "lab", ...information.lab },
+    { id: "courseName", ...data.courseName },
+    { id: "code", ...data.code },
+    { id: "courseType", ...data.courseType },
+    { id: "semester", ...data.semester },
+    { id: "credit", ...data.credit },
+    { id: "ects", ...data.ects },
+    { id: "Lecture", ...data.lecture },
+    { id: "recitation", ...data.recitation },
+    { id: "lab", ...data.lab },
   ];
 
   const col2 = [
     {
       id: "faculty",
-      ...information.faculty,
+      ...data.faculty,
     },
-    { id: "departament", ...information.departament },
-    { id: "language", ...information.language },
-    { id: "requiredElective", ...information.requiredElective },
+    { id: "departament", ...data.departament },
+    { id: "language", ...data.language },
+    { id: "requiredElective", ...data.requiredElective },
     {
       id: "Office hours",
-      ...information.officeHours,
+      ...data.officeHours,
     },
-    { id: "content", ...information.content },
+    { id: "content", ...data.content },
     {
       id: "Objectives",
-      ...information.objectives,
+      ...data.objectives,
     },
     {
       id: "courseEducationalOutcomes",
-      ...information.courseEducationalOutcomes,
+      ...data.courseEducationalOutcomes,
     },
   ];
 
   const col3 = [
     {
       id: "textbook",
-      ...information.textbook,
+      ...data.textbook,
     },
     {
       id: "otherReferences",
-      ...information.otherReferences,
+      ...data.otherReferences,
     },
-    { id: "laboratoryWork", ...information.laboratoryWork },
-    { id: "computerUsage", ...information.computerUsage },
-    { id: "others", ...information.others },
+    { id: "laboratoryWork", ...data.laboratoryWork },
+    { id: "computerUsage", ...data.computerUsage },
+    { id: "others", ...data.others },
   ];
 
   return (
@@ -99,6 +95,7 @@ const TableSemester = () => {
       <TableTypeOne data={col1} />
       <TableTwoCols data={col2} showAsAList />
       <TableTwoCols data={col3} />
+      <AccessibilityNewIcon />
       <Outcomes data={outcomes} />
     </Grid>
   );

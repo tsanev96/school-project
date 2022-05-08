@@ -22,7 +22,7 @@ interface IProps {
 const Outcomes = ({ data }: IProps) => {
   const classes = useStyles();
 
-  const renderCell = (value: string | string[]) => {
+  const renderCell = (value: string | number | string[]) => {
     if (Array.isArray(value)) {
       return "";
     }

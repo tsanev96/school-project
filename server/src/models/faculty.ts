@@ -7,8 +7,13 @@ export interface IFacultySchema {
   major: { label: string; value: string };
 }
 
+export interface IFacultySchemaWithId extends IFacultySchema {
+  _id: string;
+}
+
 const valueString = { label: String, value: String };
 const valueArray = { label: String, value: [String] };
+const valueNumber = { label: String, value: Number };
 
 export const FacultySchema = new Schema<IFacultySchema>({
   name: { type: String, required: true },
@@ -22,7 +27,7 @@ export const FacultySchema = new Schema<IFacultySchema>({
       lab: valueString,
       lecture: valueString,
       recitation: valueString,
-      semester: valueString,
+      semester: valueNumber,
       faculty: valueString,
       content: valueString,
       courseEducationalOutcomes: valueArray,

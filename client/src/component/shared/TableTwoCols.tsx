@@ -7,8 +7,8 @@ type IProps = {
 };
 
 const TableTwoCols = ({ data, showAsAList }: IProps) => {
-  const renderValues = (value: string | string[]) => {
-    if (typeof value === "string") {
+  const renderValues = (value: string | number | string[]) => {
+    if (typeof value === "string" || typeof value === "number") {
       return value;
     }
 

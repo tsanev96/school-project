@@ -1,5 +1,4 @@
 import express from "express";
-import { SemesterData } from "../../../client/src/types/semester";
 import Faculty, { IFacultySchema } from "../models/faculty";
 
 const router = express.Router();
@@ -26,7 +25,229 @@ router.post("/", async (req, res) => {
           },
           code: { label: "Code", value: "MTO111/E" },
           courseType: { label: "Course Type", value: "ED" },
-          semester: { label: "Regular Semester", value: "1" },
+          semester: { label: "Regular Semester", value: 1 },
+          credit: { label: "Credit", value: "2" },
+          ects: { label: "ECTS", value: "3" },
+          lecture: { label: "Lecture", value: "3" },
+          recitation: { label: "Recitation", value: "0" },
+          lab: { label: "lab", value: "0" },
+          faculty: {
+            label: "Faculty",
+            value: "Technichal University of Sofia",
+          },
+          departament: {
+            label: "Departament",
+            value: "Software Computing",
+          },
+          officeHours: {
+            label: "Office hours",
+            value:
+              "Please see instructor's office door for more updated information",
+          },
+          content: {
+            label: "Content",
+            value: "content",
+          },
+          objectives: {
+            label: "Objectives",
+            value: ["objective 1", "objective 2", "objective 3"],
+          },
+          courseEducationalOutcomes: {
+            label: "courseEducationalOutcomes",
+            value: [
+              "To able to comparison ",
+              "To be able to determine ",
+              "To be able to …",
+              "To be able to ",
+              "To be able to know",
+              "To calculate ",
+            ],
+          },
+          computerUsage: {
+            label: "Computer Usage",
+            value: "2",
+          },
+          laboratoryWork: {
+            label: "Laboratory Work",
+            value: "11",
+          },
+          otherReferences: {
+            label: "Other References",
+            value: ["B R.G., C R.J.,, 2020, Cloud Systems.."],
+          },
+          others: {
+            label: "Others",
+            value: "3",
+          },
+          textbook: {
+            label: "Textbook",
+            value: ["Ozdikililer E., 2021, Publishing, Bulgaria"],
+          },
+          language: {
+            label: "Language",
+            value: "English",
+          },
+          requiredElective: {
+            label: "Required Elective",
+            value: "Required",
+          },
+        },
+        {
+          courseName: {
+            label: "courseName",
+            value: "Int. to Atmosphere science",
+          },
+          code: { label: "Code", value: "MTO111/E" },
+          courseType: { label: "Course Type", value: "ED" },
+          semester: { label: "Regular Semester", value: 3 },
+          credit: { label: "Credit", value: "2" },
+          ects: { label: "ECTS", value: "3" },
+          lecture: { label: "Lecture", value: "3" },
+          recitation: { label: "Recitation", value: "0" },
+          lab: { label: "lab", value: "0" },
+          faculty: {
+            label: "Faculty",
+            value: "Technichal University of Sofia",
+          },
+          departament: {
+            label: "Departament",
+            value: "Software Computing",
+          },
+          officeHours: {
+            label: "Office hours",
+            value:
+              "Please see instructor's office door for more updated information",
+          },
+          content: {
+            label: "Content",
+            value: "content",
+          },
+          objectives: {
+            label: "Objectives",
+            value: ["objective 1", "objective 2", "objective 3"],
+          },
+          courseEducationalOutcomes: {
+            label: "courseEducationalOutcomes",
+            value: [
+              "To able to comparison ",
+              "To be able to determine ",
+              "To be able to …",
+              "To be able to ",
+              "To be able to know",
+              "To calculate ",
+            ],
+          },
+          computerUsage: {
+            label: "Computer Usage",
+            value: "2",
+          },
+          laboratoryWork: {
+            label: "Laboratory Work",
+            value: "11",
+          },
+          otherReferences: {
+            label: "Other References",
+            value: ["B R.G., C R.J.,, 2020, Cloud Systems.."],
+          },
+          others: {
+            label: "Others",
+            value: "3",
+          },
+          textbook: {
+            label: "Textbook",
+            value: ["Ozdikililer E., 2021, Publishing, Bulgaria"],
+          },
+          language: {
+            label: "Language",
+            value: "English",
+          },
+          requiredElective: {
+            label: "Required Elective",
+            value: "Required",
+          },
+        },
+        {
+          courseName: {
+            label: "courseName",
+            value: "Int. to Atmosphere science",
+          },
+          code: { label: "Code", value: "MTO111/E" },
+          courseType: { label: "Course Type", value: "ED" },
+          semester: { label: "Regular Semester", value: 4 },
+          credit: { label: "Credit", value: "2" },
+          ects: { label: "ECTS", value: "3" },
+          lecture: { label: "Lecture", value: "3" },
+          recitation: { label: "Recitation", value: "0" },
+          lab: { label: "lab", value: "0" },
+          faculty: {
+            label: "Faculty",
+            value: "Technichal University of Sofia",
+          },
+          departament: {
+            label: "Departament",
+            value: "Software Computing",
+          },
+          officeHours: {
+            label: "Office hours",
+            value:
+              "Please see instructor's office door for more updated information",
+          },
+          content: {
+            label: "Content",
+            value: "content",
+          },
+          objectives: {
+            label: "Objectives",
+            value: ["objective 1", "objective 2", "objective 3"],
+          },
+          courseEducationalOutcomes: {
+            label: "courseEducationalOutcomes",
+            value: [
+              "To able to comparison ",
+              "To be able to determine ",
+              "To be able to …",
+              "To be able to ",
+              "To be able to know",
+              "To calculate ",
+            ],
+          },
+          computerUsage: {
+            label: "Computer Usage",
+            value: "2",
+          },
+          laboratoryWork: {
+            label: "Laboratory Work",
+            value: "11",
+          },
+          otherReferences: {
+            label: "Other References",
+            value: ["B R.G., C R.J.,, 2020, Cloud Systems.."],
+          },
+          others: {
+            label: "Others",
+            value: "3",
+          },
+          textbook: {
+            label: "Textbook",
+            value: ["Ozdikililer E., 2021, Publishing, Bulgaria"],
+          },
+          language: {
+            label: "Language",
+            value: "English",
+          },
+          requiredElective: {
+            label: "Required Elective",
+            value: "Required",
+          },
+        },
+        {
+          courseName: {
+            label: "courseName",
+            value: "Int. to Atmosphere science",
+          },
+          code: { label: "Code", value: "MTO111/E" },
+          courseType: { label: "Course Type", value: "ED" },
+          semester: { label: "Regular Semester", value: 2 },
           credit: { label: "Credit", value: "2" },
           ects: { label: "ECTS", value: "3" },
           lecture: { label: "Lecture", value: "3" },
