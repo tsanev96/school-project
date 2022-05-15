@@ -1,10 +1,15 @@
 import { Schema, model } from "mongoose";
 import { SemesterData } from "../../../client/src/types/semester";
 
+export interface Major {
+  label: string;
+  value: string;
+  information: SemesterData[];
+}
+
 export interface IFacultySchema {
   name: string;
-  information: SemesterData[];
-  major: { label: string; value: string };
+  major: Major[];
 }
 
 export interface IFacultySchemaWithId extends IFacultySchema {
@@ -17,31 +22,35 @@ const valueNumber = { label: String, value: Number };
 
 export const FacultySchema = new Schema<IFacultySchema>({
   name: { type: String, required: true },
-  major: valueString,
-  information: [
+  major: [
     {
-      code: valueString,
-      courseType: valueString,
-      credit: valueString,
-      ects: valueString,
-      lab: valueString,
-      lecture: valueString,
-      recitation: valueString,
-      semester: valueNumber,
-      faculty: valueString,
-      content: valueString,
-      courseEducationalOutcomes: valueArray,
-      departament: valueString,
-      objectives: valueArray,
-      officeHours: valueString,
-      textbook: valueArray,
-      otherReferences: valueArray,
-      courseName: valueString,
-      language: valueString,
-      requiredElective: valueString,
-      laboratoryWork: valueString,
-      computerUsage: valueString,
-      others: valueString,
+      ...valueString,
+      information: [
+        {
+          code: valueString,
+          courseType: valueString,
+          credit: valueString,
+          ects: valueString,
+          lab: valueString,
+          lecture: valueString,
+          recitation: valueString,
+          semester: valueNumber,
+          faculty: valueString,
+          content: valueString,
+          courseEducationalOutcomes: valueArray,
+          departament: valueString,
+          objectives: valueArray,
+          officeHours: valueString,
+          textbook: valueArray,
+          otherReferences: valueArray,
+          courseName: valueString,
+          language: valueString,
+          requiredElective: valueString,
+          laboratoryWork: valueString,
+          computerUsage: valueString,
+          others: valueString,
+        },
+      ],
     },
   ],
 });

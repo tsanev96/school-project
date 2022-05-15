@@ -1,7 +1,7 @@
 import express from "express";
 import Faculty, { IFacultySchema } from "../models/faculty";
 import University from "../models/university";
-import { Model } from "mongoose";
+import { Model, Document } from "mongoose";
 const router = express.Router();
 
 router.get("/", async (req, res) => {
@@ -24,15 +24,15 @@ router.post("/", async (req, res) => {
     "Медицински университет – София",
   ];
 
-  const fac = await Faculty.findOne({
-    name: "Филологически",
+  const fac: Document<{}, IFacultySchema> | null = await Faculty.findOne({
+    name: ",Филологически",
   });
 
   for (let i = 0; i < a.length; i++) {
     if (fac) {
       const uni = new University({
         name: a[i],
-        faculties: [{ _id: fac._id, name: fac.name }],
+        faculties: [{ _id: fac._id, name: "some name" }],
       });
       await uni.save();
     }
