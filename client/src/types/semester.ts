@@ -20,7 +20,12 @@ type SemesterIdNames =
   | "computerUsage"
   | "others"
   | "requiredElective"
-  | "language";
+  | "language"
+  | "description"
+  | "prerequisite"
+  | "classRestrictions"
+  | "theoretical"
+  | "tutorial";
 
 export type SemesterData = {
   [key in SemesterIdNames]: {

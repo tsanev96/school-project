@@ -19,8 +19,6 @@ const Majors = () => {
                 //   (a, b) => Number(a.semester.value) - Number(b.semester.value)
                 // );
 
-
-
                 return (
                     <>
                         {faculty.major.map(el => (
