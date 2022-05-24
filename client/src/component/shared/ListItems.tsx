@@ -1,25 +1,30 @@
 import { List, ListItem, ListItemButton, ListItemText } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 type IListItems<T> = {
   data: T[];
+  children?: JSX.Element;
 };
 
 const ListItems = <T extends { name: string; _id: string }>({
   data,
+  children,
 }: IListItems<T>) => {
+  const navigate = useNavigate();
+
   return (
-    <List>
-      {data.map((el) => (
-        <Link to={el._id}>
+    <>
+      {children}
+      <List>
+        {data.map((el) => (
           <ListItem key={el.name} disablePadding>
-            <ListItemButton>
+            <ListItemButton onClick={() => navigate(el._id)}>
               <ListItemText>{el.name}</ListItemText>
             </ListItemButton>
           </ListItem>
-        </Link>
-      ))}
-    </List>
+        ))}
+      </List>
+    </>
   );
 };
 

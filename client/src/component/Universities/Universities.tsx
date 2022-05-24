@@ -1,12 +1,29 @@
 import { List, ListItem, ListItemButton, ListItemText } from "@mui/material";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useFetchHTTP } from "../../hooks/useFetchHTTP";
-import { Faculty } from "../../types/faculty";
 import ListItems from "../shared/ListItems";
 
 const Universities = () => {
-  const { data } = useFetchHTTP<Faculty[]>("universities", []);
+  const { data } = useFetchHTTP<
+    { name: string; faculties: string[]; _id: string }[]
+  >("universities", []);
+  const navigate = useNavigate();
 
-  return <ListItems data={data} />;
+  return (
+    <List>
+      {data.map((el) => (
+        <ListItem key={el.name} disablePadding>
+          <ListItemButton
+            onClick={() =>
+              navigate(`../faculties?uni=${el._id}`, { replace: true })
+            }
+          >
+            <ListItemText>{el.name}</ListItemText>
+          </ListItemButton>
+        </ListItem>
+      ))}
+    </List>
+  );
 };
 Universities;
 export default Universities;

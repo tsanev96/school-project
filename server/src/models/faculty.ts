@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import { Schema, model } from "mongoose";
 import { SemesterData } from "../../../client/src/types/semester";
 
@@ -10,6 +11,10 @@ export interface Major {
 export interface IFacultySchema {
   name: string;
   major: Major[];
+  university: {
+    _id: mongoose.Types.ObjectId;
+    name: string;
+  };
 }
 
 export interface IFacultySchemaWithId extends IFacultySchema {
@@ -58,6 +63,7 @@ export const FacultySchema = new Schema<IFacultySchema>({
       ],
     },
   ],
+  university: { name: String, _id: mongoose.Types.ObjectId },
 });
 
 const Faculty = model<IFacultySchema>("Faculty", FacultySchema);

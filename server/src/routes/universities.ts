@@ -1,41 +1,38 @@
 import express from "express";
-import Faculty, { IFacultySchema } from "../models/faculty";
 import University from "../models/university";
-import { Model, Document } from "mongoose";
+import { isValidObjectId } from "mongoose";
 const router = express.Router();
 
 router.get("/", async (req, res) => {
-  const faculties = [
-    { id: "TUS", label: "Technical University of Sofia" },
-    { id: "UNSS", label: "UNSS" },
-  ];
+  const universities = await University.find({});
+  res.send(universities);
+});
 
-  res.send(faculties);
+router.get("/:id", async (req, res) => {
+  const id = req.params.id;
+  const isValidId = isValidObjectId(id);
+  if (!isValidId) return res.status(400).send("bad request");
+  const university = await University.findById(id);
+  res.send(university);
 });
 
 router.post("/", async (req, res) => {
-  const a = [
-    "Аграрен университет",
-    "Бургаски свободен университет",
-    "Великотърновски университет",
-    "Висше военноморско училище (Варна)",
-    "Висше транспортно училище",
-    "Висше училище по телекомуникации и пощи",
-    "Медицински университет – София",
+  const universities = [
+    // "Технически Университет",
+    // "УНСС",
+    // "АМВР",
+    // "ВУТП",
+    "СОФИЙСКИ УНИВЕРСИТЕТ",
   ];
 
-  const fac: Document<{}, IFacultySchema> | null = await Faculty.findOne({
-    name: ",Филологически",
-  });
+  for (let i = 0; i < universities.length; i++) {
+    const uni = new University({
+      name: universities[i],
+    });
 
-  for (let i = 0; i < a.length; i++) {
-    if (fac) {
-      const uni = new University({
-        name: a[i],
-        faculties: [{ _id: fac._id, name: "some name" }],
-      });
-      await uni.save();
-    }
+    await uni.save().catch((err) => {
+      console.log("there was an error", err);
+    });
   }
 
   res.send("created");
