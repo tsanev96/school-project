@@ -16,15 +16,12 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import TableSemester from "../TableSemester/TableSemester";
 import { makeStyles } from "@mui/styles";
 import { SemesterData } from "../../types/semester";
-import { useState } from "react";
+import { FC, useState } from "react";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import CourseCatalog from "../CourseCatalog/CourseCatalog";
+import Wrapper from "../shared/Wrapper";
 
 const useStyles = makeStyles({
-  root: {
-    width: "70%",
-    margin: "0 auto !important",
-  },
   headline: {
     marginBottom: "30px !important",
   },
@@ -33,16 +30,20 @@ const useStyles = makeStyles({
   backButton: { marginBottom: 20 },
 });
 
-const SemestersList = () => {
+interface ISemesterList {
+  data: SemesterData;
+}
+
+const SemestersList: FC<ISemesterList> = ({ data }) => {
   const classes = useStyles();
   const params = useParams();
   const [major, setMajor] = useState<
     { data: SemesterData; isCatalogOpen: boolean }[]
   >([]);
 
-  const handleClick = (data: SemesterData[]) => {
-    const sortedSemesters = data.sort(
-      (a, b) => Number(a.semester.value) - Number(b.semester.value)
+  const handleClick = (subjects: SemesterData[]) => {
+    const sortedSemesters = subjects.sort(
+      (a, b) => Number(a.semester) - Number(b.semester)
     );
     const dataToSet = sortedSemesters.map((el) => ({
       data: el,
@@ -53,14 +54,12 @@ const SemestersList = () => {
 
   const toggleCatalog = (courseName: string, open: boolean) => {
     const elementIndex = major.findIndex(
-      (el) => el.data.courseName.value === courseName
+      (el) => el.data.courseName === courseName
     );
     const copiedMajor = [...major];
     copiedMajor[elementIndex].isCatalogOpen = open;
     setMajor(copiedMajor);
   };
-
-  console.log("semester list");
 
   return (
     <FacultiesContext.Consumer>
@@ -71,7 +70,8 @@ const SemestersList = () => {
           return <div>not found</div>;
         }
 
-        const isOpenCatalog = major.some((el) => el.isCatalogOpen);
+        // const isOpenCatalog = major.some((el) => el.isCatalogOpen);
+        const isOpenCatalog = false;
 
         if (isOpenCatalog) {
           return major.map((el) => (
@@ -80,7 +80,7 @@ const SemestersList = () => {
                 <CourseCatalog
                   data={el.data}
                   onBack={() =>
-                    toggleCatalog(el.data.courseName.value as string, false)
+                    toggleCatalog(el.data.courseName as string, false)
                   }
                 />
               )}
@@ -90,55 +90,55 @@ const SemestersList = () => {
 
         if (major && major.length) {
           return (
-            <Grid className={classes.root}>
-              <Grid item>
-                <IconButton
-                  className={classes.backButton}
-                  onClick={() => setMajor([])}
-                >
-                  <ArrowBackIcon />
-                </IconButton>
+            <Wrapper>
+              <Grid>
+                <Grid item>
+                  <IconButton
+                    className={classes.backButton}
+                    onClick={() => setMajor([])}
+                  >
+                    <ArrowBackIcon />
+                  </IconButton>
+                </Grid>
+                <Grid item>
+                  {major.map((el) => (
+                    <Accordion>
+                      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                        <Typography>Semester: {el.data.semester}</Typography>
+                      </AccordionSummary>
+                      <AccordionDetails>
+                        <Button
+                          variant="contained"
+                          onClick={() =>
+                            toggleCatalog(el.data.courseName as string, true)
+                          }
+                        >
+                          Open Catalog
+                        </Button>
+                        <TableSemester data={el.data} />
+                      </AccordionDetails>
+                    </Accordion>
+                  ))}
+                </Grid>
               </Grid>
-              <Grid item>
-                {major.map((el) => (
-                  <Accordion className="test-class">
-                    <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                      <Typography>
-                        Semester: {el.data.semester.value}
-                      </Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                      <Button
-                        variant="contained"
-                        onClick={() =>
-                          toggleCatalog(
-                            el.data.courseName.value as string,
-                            true
-                          )
-                        }
-                      >
-                        Open Catalog
-                      </Button>
-                      <TableSemester data={el.data} />
-                    </AccordionDetails>
-                  </Accordion>
-                ))}
-              </Grid>
-            </Grid>
+            </Wrapper>
           );
         }
 
         return (
-          <List className={classes.root}>
-            <ListItemText className={classes.majors}>
-              <Typography variant="h4">Majors</Typography>
-            </ListItemText>
-            {faculty.major.map((el) => (
-              <ListItemButton onClick={() => handleClick(el.information)}>
-                {el.value}
-              </ListItemButton>
-            ))}
-          </List>
+          <Wrapper>
+            <List>
+              <ListItemText className={classes.majors}>
+                <Typography variant="h3">{faculty.name}</Typography>
+                <Typography variant="h5">Специалности</Typography>
+              </ListItemText>
+              {faculty.majors.map((el) => (
+                <ListItemButton onClick={() => handleClick(el.subjects)}>
+                  {el}
+                </ListItemButton>
+              ))}
+            </List>
+          </Wrapper>
         );
       }}
     </FacultiesContext.Consumer>

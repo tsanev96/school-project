@@ -9,6 +9,7 @@ import { useFetchHTTP } from "./hooks/useFetchHTTP";
 import { IFacultySchemaWithId } from "../../server/src/models/faculty";
 import SemestersList from "./component/SemestersList/SemestersList";
 import Universities from "./component/Universities/Universities";
+import Majors from "./component/Majors/Majors";
 
 function App() {
   const { data } = useFetchHTTP<IFacultySchemaWithId[]>("faculties", []);
@@ -19,9 +20,9 @@ function App() {
         <Header />
         <FacultiesContext.Provider value={data}>
           <Routes>
-            {/* TODO nested routes  */}
             <Route path="/faculties" element={<Faculties />} />
-            <Route path="/faculties/:id" element={<SemestersList />} />
+            <Route path="/faculties/:id" element={<Majors />} />
+            {/* <Route path="/faculties/:id" element={<SemestersList />} /> */}
             <Route path="/universities" element={<Universities />} />
           </Routes>
         </FacultiesContext.Provider>

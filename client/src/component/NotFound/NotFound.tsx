@@ -1,5 +1,11 @@
+import Wrapper from "../shared/Wrapper";
+
 const NotFound = () => {
-  return <div>Not found</div>;
+  return (
+    <Wrapper>
+      <div>Not found</div>
+    </Wrapper>
+  );
 };
 
 export default NotFound;

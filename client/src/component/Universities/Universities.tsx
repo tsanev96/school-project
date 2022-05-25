@@ -1,7 +1,7 @@
 import { List, ListItem, ListItemButton, ListItemText } from "@mui/material";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useFetchHTTP } from "../../hooks/useFetchHTTP";
-import ListItems from "../shared/ListItems";
+import Wrapper from "../shared/Wrapper";
 
 const Universities = () => {
   const { data } = useFetchHTTP<
@@ -10,20 +10,22 @@ const Universities = () => {
   const navigate = useNavigate();
 
   return (
-    <List>
-      {data.map((el) => (
-        <ListItem key={el.name} disablePadding>
-          <ListItemButton
-            onClick={() =>
-              navigate(`../faculties?uni=${el._id}`, { replace: true })
-            }
-          >
-            <ListItemText>{el.name}</ListItemText>
-          </ListItemButton>
-        </ListItem>
-      ))}
-    </List>
+    <Wrapper>
+      <List>
+        {data.map((el) => (
+          <ListItem key={el.name} disablePadding>
+            <ListItemButton
+              onClick={() =>
+                navigate(`../faculties?uni=${el._id}`, { replace: true })
+              }
+            >
+              <ListItemText>{el.name}</ListItemText>
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+    </Wrapper>
   );
 };
-Universities;
+
 export default Universities;

@@ -41,7 +41,7 @@ const Outcomes = ({ data }: IProps) => {
       </Grid>
       {data.map((item) => (
         <Grid
-          key={item.id}
+          key={item.label}
           className={classes.cellWrapper}
           item
           container

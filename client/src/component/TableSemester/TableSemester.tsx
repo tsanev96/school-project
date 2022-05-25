@@ -41,52 +41,52 @@ const TableSemester: FC<ITableSemester> = ({ data }) => {
   const classes = useStyles();
 
   const col1 = [
-    { id: "courseName", ...data.courseName },
-    { id: "code", ...data.code },
-    { id: "courseType", ...data.courseType },
-    { id: "semester", ...data.semester },
-    { id: "credit", ...data.credit },
-    { id: "ects", ...data.ects },
-    { id: "Lecture", ...data.lecture },
-    { id: "recitation", ...data.recitation },
-    { id: "lab", ...data.lab },
+    { label: "Course Name", value: data.courseName },
+    { label: "Code", value: data.code },
+    { label: "Course Type", value: data.courseType },
+    { label: "Semester", value: data.semester },
+    { label: "Credit", value: data.credit },
+    { label: "ECTS", value: data.ects },
+    { label: "Lecture", value: data.lecture },
+    { label: "Recitation", value: data.recitation },
+    { label: "Lab", value: data.lab },
   ];
 
   const col2 = [
     {
-      id: "faculty",
-      ...data.faculty,
+      label: "Faculty",
+      value: data.faculty,
     },
-    { id: "departament", ...data.departament },
-    { id: "language", ...data.language },
-    { id: "requiredElective", ...data.requiredElective },
+    { label: "Departament", value: data.departament },
+    { label: "Language", value: data.language },
+    { label: "Required Elective", value: data.requiredElective },
     {
-      id: "Office hours",
-      ...data.officeHours,
+      label: "Office hours",
+      value: data.officeHours,
     },
-    { id: "content", ...data.content },
+    { label: "Content", value: data.content },
     {
-      id: "Objectives",
-      ...data.objectives,
+      label: "Objectives",
+      value: data.objectives,
     },
     {
-      id: "courseEducationalOutcomes",
-      ...data.courseEducationalOutcomes,
+      label: "Course Educational Outcomes",
+      value: data.courseEducationalOutcomes,
     },
   ];
 
   const col3 = [
     {
-      id: "textbook",
-      ...data.textbook,
+      label: "textbook",
+      value: data.textbook,
     },
     {
-      id: "otherReferences",
-      ...data.otherReferences,
+      label: "otherReferences",
+      value: data.otherReferences,
     },
-    { id: "laboratoryWork", ...data.laboratoryWork },
-    { id: "computerUsage", ...data.computerUsage },
-    { id: "others", ...data.others },
+    { label: "laboratoryWork", value: data.laboratoryWork },
+    { label: "computerUsage", value: data.computerUsage },
+    { label: "others", value: data.others },
   ];
 
   return (

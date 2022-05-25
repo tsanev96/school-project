@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import { useFetchHTTP } from "../../hooks/useFetchHTTP";
 import { University } from "../../types/university";
+import Wrapper from "../shared/Wrapper";
 
 const Faculties = () => {
   const location = useLocation();
@@ -38,22 +39,26 @@ const Faculties = () => {
           }
 
           return (
-            <>
+            <Wrapper>
               <Typography variant="h4">{university.name}</Typography>
               <List>
                 {specificFaculties.map((el) => (
                   <ListItem key={el.name} disablePadding>
-                    <ListItemButton onClick={() => navigate("faculties")}>
+                    <ListItemButton onClick={() => navigate(el._id)}>
                       <ListItemText>{el.name}</ListItemText>
                     </ListItemButton>
                   </ListItem>
                 ))}
               </List>
-            </>
+            </Wrapper>
           );
         }
 
-        return <ListItems data={data} />;
+        return (
+          <Wrapper>
+            <ListItems data={data} />
+          </Wrapper>
+        );
       }}
     </FacultiesContext.Consumer>
   );

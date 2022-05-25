@@ -28,8 +28,5 @@ type SemesterIdNames =
   | "tutorial";
 
 export type SemesterData = {
-  [key in SemesterIdNames]: {
-    label: string;
-    value: string | number | string[];
-  };
+  [key in SemesterIdNames]: string | number | string[];
 };

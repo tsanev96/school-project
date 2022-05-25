@@ -3,14 +3,13 @@ import { Schema, model } from "mongoose";
 import { SemesterData } from "../../../client/src/types/semester";
 
 export interface Major {
-  label: string;
-  value: string;
-  information: SemesterData[];
+  major: string;
+  subjects: SemesterData[];
 }
 
 export interface IFacultySchema {
   name: string;
-  major: Major[];
+  majors: Major[];
   university: {
     _id: mongoose.Types.ObjectId;
     name: string;
@@ -21,44 +20,43 @@ export interface IFacultySchemaWithId extends IFacultySchema {
   _id: string;
 }
 
-const valueString = { label: String, value: String };
 const valueArray = { label: String, value: [String] };
 const valueNumber = { label: String, value: Number };
 
 export const FacultySchema = new Schema<IFacultySchema>({
   name: { type: String, required: true },
-  major: [
+  majors: [
     {
-      ...valueString,
-      information: [
+      major: String,
+      subjects: [
         {
-          code: valueString,
-          courseType: valueString,
-          credit: valueString,
-          ects: valueString,
-          lab: valueString,
-          lecture: valueString,
-          recitation: valueString,
+          code: String,
+          courseType: String,
+          credit: String,
+          ects: String,
+          lab: String,
+          lecture: String,
+          recitation: String,
           semester: valueNumber,
-          faculty: valueString,
-          content: valueString,
+          faculty: String,
+          content: String,
           courseEducationalOutcomes: valueArray,
-          departament: valueString,
+          departament: String,
           objectives: valueArray,
-          officeHours: valueString,
+          officeHours: String,
           textbook: valueArray,
           otherReferences: valueArray,
-          courseName: valueString,
-          language: valueString,
-          requiredElective: valueString,
-          laboratoryWork: valueString,
-          computerUsage: valueString,
-          others: valueString,
-          description: valueString,
-          classRestrictions: valueString,
-          prerequisite: valueString,
-          theoretical: valueString,
-          tutorial: valueString,
+          courseName: String,
+          language: String,
+          requiredElective: String,
+          laboratoryWork: String,
+          computerUsage: String,
+          others: String,
+          description: String,
+          classRestrictions: String,
+          prerequisite: String,
+          theoretical: String,
+          tutorial: String,
         },
       ],
     },
