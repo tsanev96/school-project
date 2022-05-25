@@ -14,14 +14,12 @@ export interface IFacultySchema {
     _id: mongoose.Types.ObjectId;
     name: string;
   };
+  semesters: number;
 }
 
 export interface IFacultySchemaWithId extends IFacultySchema {
   _id: string;
 }
-
-const valueArray = { label: String, value: [String] };
-const valueNumber = { label: String, value: Number };
 
 export const FacultySchema = new Schema<IFacultySchema>({
   name: { type: String, required: true },
@@ -32,26 +30,26 @@ export const FacultySchema = new Schema<IFacultySchema>({
         {
           code: String,
           courseType: String,
-          credit: String,
-          ects: String,
-          lab: String,
-          lecture: String,
-          recitation: String,
-          semester: valueNumber,
+          credit: Number,
+          ects: Number,
+          lab: Number,
+          lecture: Number,
+          recitation: Number,
+          semester: Number,
           faculty: String,
           content: String,
-          courseEducationalOutcomes: valueArray,
+          courseEducationalOutcomes: [String],
           departament: String,
-          objectives: valueArray,
+          objectives: [String],
           officeHours: String,
-          textbook: valueArray,
-          otherReferences: valueArray,
+          textbook: [String],
+          otherReferences: [String],
           courseName: String,
           language: String,
           requiredElective: String,
-          laboratoryWork: String,
-          computerUsage: String,
-          others: String,
+          laboratoryWork: Number,
+          computerUsage: Number,
+          others: Number,
           description: String,
           classRestrictions: String,
           prerequisite: String,
@@ -62,6 +60,7 @@ export const FacultySchema = new Schema<IFacultySchema>({
     },
   ],
   university: { name: String, _id: mongoose.Types.ObjectId },
+  semesters: Number,
 });
 
 const Faculty = model<IFacultySchema>("Faculty", FacultySchema);

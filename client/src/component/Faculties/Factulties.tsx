@@ -29,9 +29,9 @@ const Faculties = () => {
   return (
     <FacultiesContext.Consumer>
       {(data) => {
-        if (university && universityId) {
+        const renderOneFaculty = (uni: University) => {
           const specificFaculties = data.filter(
-            (el) => String(el.university._id) === university._id
+            (el) => String(el.university._id) === uni._id
           );
 
           if (!specificFaculties.length) {
@@ -40,7 +40,7 @@ const Faculties = () => {
 
           return (
             <Wrapper>
-              <Typography variant="h4">{university.name}</Typography>
+              <Typography variant="h4">{uni.name}</Typography>
               <List>
                 {specificFaculties.map((el) => (
                   <ListItem key={el.name} disablePadding>
@@ -52,13 +52,22 @@ const Faculties = () => {
               </List>
             </Wrapper>
           );
+        };
+
+        const renderAllFaculties = () => {
+          return (
+            <Wrapper>
+              <Typography variant="h4">Факултети</Typography>
+              <ListItems data={data} />
+            </Wrapper>
+          );
+        };
+
+        if (university && universityId) {
+          return renderOneFaculty(university);
         }
 
-        return (
-          <Wrapper>
-            <ListItems data={data} />
-          </Wrapper>
-        );
+        return renderAllFaculties();
       }}
     </FacultiesContext.Consumer>
   );

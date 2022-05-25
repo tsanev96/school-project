@@ -1,4 +1,10 @@
-import { List, ListItem, ListItemButton, ListItemText } from "@mui/material";
+import {
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  Typography,
+} from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useFetchHTTP } from "../../hooks/useFetchHTTP";
 import Wrapper from "../shared/Wrapper";
@@ -11,6 +17,7 @@ const Universities = () => {
 
   return (
     <Wrapper>
+      <Typography variant="h4">Университети</Typography>
       <List>
         {data.map((el) => (
           <ListItem key={el.name} disablePadding>

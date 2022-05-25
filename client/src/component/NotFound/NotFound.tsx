@@ -1,9 +1,18 @@
+import { Typography } from "@mui/material";
+import { FC } from "react";
 import Wrapper from "../shared/Wrapper";
 
-const NotFound = () => {
+interface INotFound {
+  description?: string;
+}
+
+const NotFound: FC<INotFound> = ({ description }) => {
   return (
     <Wrapper>
-      <div>Not found</div>
+      <>
+        <Typography variant="h3">Not found</Typography>
+        {description && <Typography>{description}</Typography>}
+      </>
     </Wrapper>
   );
 };

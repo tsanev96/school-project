@@ -33,8 +33,8 @@ const Header = () => {
   const classes = useStyles();
 
   const data = [
-    { name: "faculties", path: "faculties" },
     { name: "universities", path: "universities" },
+    { name: "faculties", path: "faculties" },
   ];
 
   return (

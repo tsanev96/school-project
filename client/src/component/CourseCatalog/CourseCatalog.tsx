@@ -60,7 +60,7 @@ const CourseCatalog: FC<ICourseCatalog> = ({ onBack, data }) => {
 
   const renderCell = (label: string, value: string) => {
     return (
-      <Grid item xs>
+      <Grid key={label} item xs>
         <Typography className={classes.rowLabel}>{label}</Typography>
         <Typography className={classes.rowValue}>{value}</Typography>
       </Grid>

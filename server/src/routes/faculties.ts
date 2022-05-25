@@ -4511,6 +4511,7 @@ router.post("/", async (req, res) => {
         },
       ],
       university,
+      semesters: 8,
     },
     {
       name: "Електротехнически Факултет",
@@ -9005,6 +9006,7 @@ router.post("/", async (req, res) => {
         },
       ],
       university,
+      semesters: 8,
     },
     {
       name: "Факултет по индустриални технологии",
@@ -13499,6 +13501,7 @@ router.post("/", async (req, res) => {
         },
       ],
       university,
+      semesters: 8,
     },
     {
       name: "Машиностроителен факултет",
@@ -17993,6 +17996,7 @@ router.post("/", async (req, res) => {
         },
       ],
       university,
+      semesters: 8,
     },
     {
       name: "Факултет по телекомуникации",
@@ -22487,6 +22491,7 @@ router.post("/", async (req, res) => {
         },
       ],
       university,
+      semesters: 8,
     },
     {
       name: "Факултет Компютърни системи и технологии",
@@ -26981,6 +26986,7 @@ router.post("/", async (req, res) => {
         },
       ],
       university,
+      semesters: 8,
     },
     {
       name: "Факултет по транспорта",
@@ -31475,6 +31481,7 @@ router.post("/", async (req, res) => {
         },
       ],
       university,
+      semesters: 8,
     },
   ];
 
@@ -31483,6 +31490,7 @@ router.post("/", async (req, res) => {
       name: faculties[i].name,
       majors: faculties[i].majors,
       university: faculties[i].university,
+      semesters: faculties[i].semesters,
     });
     const test = await faculty.save().catch((err) => {
       console.log("error here", err);

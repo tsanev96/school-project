@@ -7,7 +7,7 @@ import Header from "./component/Header/Header";
 import { FacultiesContext } from "./context/faculties";
 import { useFetchHTTP } from "./hooks/useFetchHTTP";
 import { IFacultySchemaWithId } from "../../server/src/models/faculty";
-import SemestersList from "./component/SemestersList/SemestersList";
+import Subjects from "./component/Subjects/Subjects";
 import Universities from "./component/Universities/Universities";
 import Majors from "./component/Majors/Majors";
 
@@ -20,9 +20,9 @@ function App() {
         <Header />
         <FacultiesContext.Provider value={data}>
           <Routes>
+            <Route path="/" element={<Universities />} />
             <Route path="/faculties" element={<Faculties />} />
             <Route path="/faculties/:id" element={<Majors />} />
-            {/* <Route path="/faculties/:id" element={<SemestersList />} /> */}
             <Route path="/universities" element={<Universities />} />
           </Routes>
         </FacultiesContext.Provider>

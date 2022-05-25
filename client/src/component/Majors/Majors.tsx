@@ -2,6 +2,7 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
+  IconButton,
   List,
   ListItem,
   ListItemButton,
@@ -15,8 +16,10 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Wrapper from "../shared/Wrapper";
 import { makeStyles } from "@mui/styles";
 import { useState } from "react";
-import { SemesterData } from "../../types/semester";
-import SemestersList from "../SemestersList/SemestersList";
+import Subjects from "../Subjects/Subjects";
+import { Major } from "../../../../server/src/models/faculty";
+import NotFound from "../NotFound/NotFound";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 const useStyles = makeStyles({
   accordion: {
@@ -25,10 +28,10 @@ const useStyles = makeStyles({
 });
 
 const Majors = (props: any) => {
-  //   const [test, setTest] = useState<SemesterData>([]);
+  const navigate = useNavigate();
+  const [major, setMajor] = useState<Major | null>(null);
   const params = useParams();
   const classes = useStyles();
-  const navigate = useNavigate();
 
   return (
     <FacultiesContext.Consumer>
@@ -36,65 +39,46 @@ const Majors = (props: any) => {
         const faculty = data.find((fac) => fac._id === params.id);
 
         if (!faculty) {
-          return <div>not found</div>;
+          return (
+            <NotFound
+              description={`Faculty with id ${params.id} does not exist`}
+            />
+          );
+        } else if (major) {
+          return (
+            <Subjects
+              {...major}
+              semesters={faculty.semesters}
+              onBack={() => setMajor(null)}
+            />
+          );
         }
-
-        const showTableSemester = () => {
-          props.router.push({
-            pathname: "/major",
-            state: {
-              id: 7,
-              color: "green",
-            },
-          });
-        };
-
-        // if (test) {
-        //   <SemestersList data={test} />;
-        // }
 
         return (
           <Wrapper>
+            <IconButton
+              onClick={() => {
+                console.log("clicked");
+                navigate("../faculties", { replace: true });
+              }}
+            >
+              <ArrowBackIcon />
+            </IconButton>
+            <Typography variant="h2">{faculty.name}</Typography>
+            <Typography variant="h4">Специалности</Typography>
             <List>
               {faculty.majors.map((major) => (
-                <div>
-                  {major.subjects.map((el) => (
-                    <ListItem disablePadding>
-                      <ListItemButton
-                      // onClick={() => setTest(major.information)}
-                      >
-                        <ListItemText>{el.courseName}</ListItemText>
-                      </ListItemButton>
-                    </ListItem>
-                  ))}
-                </div>
+                <Typography key={major.major} component="div">
+                  <ListItem disablePadding>
+                    <ListItemButton onClick={() => setMajor(major)}>
+                      <ListItemText>{major.major}</ListItemText>
+                    </ListItemButton>
+                  </ListItem>
+                </Typography>
               ))}
             </List>
           </Wrapper>
         );
-        // return (
-        //   <>
-        //     {faculty.major.map((el) => (
-        //       <>
-        //         <div>
-        //           {el.information.map((major) => (
-        //             <Wrapper>
-        //               <Accordion className={classes.accordion}>
-        //                 <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-        //                   <Typography>{major.courseName}</Typography>
-        //                 </AccordionSummary>
-        //                 <AccordionDetails>
-        //                   {/* <TableSemester data={major} /> */}
-
-        //                 </AccordionDetails>
-        //               </Accordion>
-        //             </Wrapper>
-        //           ))}
-        //         </div>
-        //       </>
-        //     ))}
-        //   </>
-        // );
       }}
     </FacultiesContext.Consumer>
   );
