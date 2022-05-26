@@ -22,12 +22,16 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import CourseCatalog from "../CourseCatalog/CourseCatalog";
 import Wrapper from "../shared/Wrapper";
 import { Major } from "../../../../server/src/models/faculty";
+import HeadlineWithDesription from "../shared/HeadlineWithDescription";
+import BackButton from "../shared/BackButton";
 
 const useStyles = makeStyles({
   headline: {
     marginBottom: "30px !important",
   },
-  semesters: {},
+  semester: {
+    marginBottom: "15px !important",
+  },
   majors: { paddingLeft: 16 },
   backButton: { marginBottom: 20 },
   title: { marginBottom: 20 },
@@ -35,10 +39,17 @@ const useStyles = makeStyles({
 
 interface ISubjects extends Major {
   semesters: number;
+  facultyName: string;
   onBack: () => void;
 }
 
-const Subjects: FC<ISubjects> = ({ subjects, major, semesters, onBack }) => {
+const Subjects: FC<ISubjects> = ({
+  subjects,
+  major,
+  semesters,
+  onBack,
+  facultyName,
+}) => {
   const classes = useStyles();
   const [currentSemester, setCurrentSemester] = useState(0);
   const [catalog, setCatalog] = useState<SemesterData | null>(null);
@@ -51,12 +62,17 @@ const Subjects: FC<ISubjects> = ({ subjects, major, semesters, onBack }) => {
     return (
       <Wrapper>
         <Typography component="div">
-          <IconButton
+          <BackButton
             className={classes.backButton}
-            onClick={() => setCurrentSemester(0)}
-          >
-            <ArrowBackIcon />
-          </IconButton>
+            onBack={() => setCurrentSemester(0)}
+          />
+          <HeadlineWithDesription
+            title={`${facultyName}`}
+            description={`Специалност: ${major}`}
+          />
+          <Typography className={classes.semester}>
+            Семестър: {currentSemester}
+          </Typography>
         </Typography>
         <Typography component="div">
           {subjects.map((el) => (
@@ -87,13 +103,11 @@ const Subjects: FC<ISubjects> = ({ subjects, major, semesters, onBack }) => {
     <Wrapper>
       <Grid>
         <Grid item>
-          <IconButton className={classes.backButton} onClick={onBack}>
-            <ArrowBackIcon />
-          </IconButton>
-          <Typography variant="h3">Специалност: {major}</Typography>
-          <Typography variant="h4" className={classes.title}>
-            Семестри
-          </Typography>
+          <BackButton onBack={onBack} />
+          <HeadlineWithDesription
+            title={`Специалност: ${major}`}
+            description="Семестри"
+          />
         </Grid>
         <Grid item>
           <List>

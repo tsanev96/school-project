@@ -20,6 +20,8 @@ import Subjects from "../Subjects/Subjects";
 import { Major } from "../../../../server/src/models/faculty";
 import NotFound from "../NotFound/NotFound";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import HeadlineWithDesription from "../shared/HeadlineWithDescription";
+import BackButton from "../shared/BackButton";
 
 const useStyles = makeStyles({
   accordion: {
@@ -50,22 +52,20 @@ const Majors = (props: any) => {
               {...major}
               semesters={faculty.semesters}
               onBack={() => setMajor(null)}
+              facultyName={faculty.name}
             />
           );
         }
 
         return (
           <Wrapper>
-            <IconButton
-              onClick={() => {
-                console.log("clicked");
-                navigate("../faculties", { replace: true });
-              }}
-            >
-              <ArrowBackIcon />
-            </IconButton>
-            <Typography variant="h2">{faculty.name}</Typography>
-            <Typography variant="h4">Специалности</Typography>
+            <BackButton
+              onBack={() => navigate("../faculties", { replace: true })}
+            />
+            <HeadlineWithDesription
+              title={faculty.name}
+              description="Специалности"
+            />
             <List>
               {faculty.majors.map((major) => (
                 <Typography key={major.major} component="div">

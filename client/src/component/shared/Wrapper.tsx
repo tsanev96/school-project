@@ -5,7 +5,9 @@ import { FC } from "react";
 const useStyles = makeStyles({
   root: {
     width: 1200,
+    padding: 30,
     margin: "0 auto",
+    background: "#F5F5F5",
   },
 });
 

@@ -13,6 +13,7 @@ const useStyles = makeStyles({
       borderBottom: "none",
     },
   },
+  bold: { fontWeight: "bold" },
 });
 
 type IProps = {
@@ -34,7 +35,9 @@ const TableTypeOne = ({ data }: IProps) => {
           direction="column"
         >
           <Grid item>{item.label}</Grid>
-          <Grid item>{item.value}</Grid>
+          <Grid item className={index === 0 ? classes.bold : ""}>
+            {item.value}
+          </Grid>
         </Grid>
       ))}
     </Grid>

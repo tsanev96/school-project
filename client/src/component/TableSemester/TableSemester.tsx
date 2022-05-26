@@ -43,7 +43,7 @@ const TableSemester: FC<ITableSemester> = ({ data }) => {
   const col1 = [
     { label: "Course Name", value: data.courseName },
     { label: "Code", value: data.code },
-    { label: "Course Type", value: data.courseType },
+    { label: "Course", value: data.courseType },
     { label: "Semester", value: data.semester },
     { label: "Credit", value: data.credit },
     { label: "ECTS", value: data.ects },
