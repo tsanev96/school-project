@@ -1,74 +1,75 @@
-import {
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemText,
-  Typography,
-} from "@mui/material";
-import { useNavigate, useParams } from "react-router-dom";
-import { FacultiesContext } from "../../context/faculties";
-import Wrapper from "../shared/Wrapper";
-import { makeStyles } from "@mui/styles";
+import { List, ListItem, ListItemButton, ListItemText } from "@mui/material";
 import { useState } from "react";
-import Subjects from "../Subjects/Subjects";
+import { useNavigate } from "react-router-dom";
 import { Major } from "../../../../server/src/models/faculty";
-import NotFound from "../NotFound/NotFound";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import HeadlineWithDesription from "../shared/HeadlineWithDescription";
-import BackButton from "../shared/BackButton";
-
-const useStyles = makeStyles({
-  accordion: {
-    marginBottom: 10,
-  },
-});
+import { FacultiesContext } from "../../context/faculties";
+import { startsWith } from "../../utils/startsWith";
+import SearchBox from "../shared/SearchBox";
+import Wrapper from "../shared/Wrapper";
+import Subject from "../Subject/Subject";
 
 const Majors = () => {
-  const navigate = useNavigate();
-  const [major, setMajor] = useState<Major | null>(null);
-  const params = useParams();
-  const classes = useStyles();
+  const [searchQuery, setSearchQuery] = useState("");
+  const [currentMajor, setCurrentMajor] = useState<{
+    major: Major;
+    facultyName: string;
+    semesters: number;
+  } | null>(null);
 
   return (
     <FacultiesContext.Consumer>
       {(data) => {
-        const faculty = data.find((fac) => fac._id === params.id);
+        const allMajors: {
+          major: Major;
+          facultyName: string;
+          semesters: number;
+        }[] = [];
 
-        if (!faculty) {
+        data.forEach((el) => {
+          el.majors.forEach((major) => {
+            if (searchQuery) {
+              if (startsWith(major.major, searchQuery)) {
+                allMajors.push({
+                  major,
+                  facultyName: el.name,
+                  semesters: el.semesters,
+                });
+              }
+            } else {
+              allMajors.push({
+                major,
+                facultyName: el.name,
+                semesters: el.semesters,
+              });
+            }
+          });
+        });
+
+        if (currentMajor) {
           return (
-            <NotFound
-              description={`Faculty with id ${params.id} does not exist`}
-            />
-          );
-        } else if (major) {
-          return (
-            <Subjects
-              {...major}
-              semesters={faculty.semesters}
-              onBack={() => setMajor(null)}
-              facultyName={faculty.name}
+            <Subject
+              major={currentMajor.major.major}
+              subjects={currentMajor.major.subjects}
+              facultyName={currentMajor.facultyName}
+              semesters={currentMajor.semesters}
+              onBack={() => setCurrentMajor(null)}
             />
           );
         }
 
         return (
           <Wrapper>
-            <BackButton
-              onBack={() => navigate("../faculties", { replace: true })}
-            />
-            <HeadlineWithDesription
-              title={`${faculty.name}, гр.${faculty.city}`}
-              description="Специалности"
+            <SearchBox
+              onChange={setSearchQuery}
+              placeholder="търси специалност.."
             />
             <List>
-              {faculty.majors.map((major) => (
-                <Typography key={major.major} component="div">
-                  <ListItem disablePadding>
-                    <ListItemButton onClick={() => setMajor(major)}>
-                      <ListItemText>{major.major}</ListItemText>
-                    </ListItemButton>
-                  </ListItem>
-                </Typography>
+              {allMajors.map((el) => (
+                <ListItem disablePadding>
+                  <ListItemButton onClick={() => setCurrentMajor(el)}>
+                    <ListItemText>{el.major.major}</ListItemText>
+                  </ListItemButton>
+                </ListItem>
               ))}
             </List>
           </Wrapper>

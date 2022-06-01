@@ -4,7 +4,7 @@ import { FC } from "react";
 
 interface IHeadlineWithDesription {
   title: string;
-  description: string;
+  description?: string;
 }
 
 const useStyles = makeStyles({
@@ -27,9 +27,11 @@ const HeadlineWithDesription: FC<IHeadlineWithDesription> = ({
       <Typography className={classes.title} variant="h4">
         {title}
       </Typography>
-      <Typography className={classes.description} variant="h5">
-        {description}
-      </Typography>
+      {description && (
+        <Typography className={classes.description} variant="h5">
+          {description}
+        </Typography>
+      )}
     </Grid>
   );
 };
