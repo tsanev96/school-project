@@ -19,17 +19,19 @@ const Universities = () => {
     <Wrapper>
       <Typography variant="h4">Университети</Typography>
       <List>
-        {data.map((el) => (
-          <ListItem key={el.name} disablePadding>
-            <ListItemButton
-              onClick={() =>
-                navigate(`../faculties?uni=${el._id}`, { replace: true })
-              }
-            >
-              <ListItemText>{el.name}</ListItemText>
-            </ListItemButton>
-          </ListItem>
-        ))}
+        {data
+          .sort((a, b) => a.name.localeCompare(b.name))
+          .map((el) => (
+            <ListItem key={el.name} disablePadding>
+              <ListItemButton
+                onClick={() =>
+                  navigate(`../faculties?uni=${el._id}`, { replace: true })
+                }
+              >
+                <ListItemText>{el.name}</ListItemText>
+              </ListItemButton>
+            </ListItem>
+          ))}
       </List>
     </Wrapper>
   );

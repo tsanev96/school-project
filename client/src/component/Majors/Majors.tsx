@@ -1,8 +1,4 @@
 import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  IconButton,
   List,
   ListItem,
   ListItemButton,
@@ -11,8 +7,6 @@ import {
 } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import { FacultiesContext } from "../../context/faculties";
-import TableSemester from "../TableSemester/TableSemester";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Wrapper from "../shared/Wrapper";
 import { makeStyles } from "@mui/styles";
 import { useState } from "react";
@@ -29,7 +23,7 @@ const useStyles = makeStyles({
   },
 });
 
-const Majors = (props: any) => {
+const Majors = () => {
   const navigate = useNavigate();
   const [major, setMajor] = useState<Major | null>(null);
   const params = useParams();
@@ -63,7 +57,7 @@ const Majors = (props: any) => {
               onBack={() => navigate("../faculties", { replace: true })}
             />
             <HeadlineWithDesription
-              title={faculty.name}
+              title={`${faculty.name}, гр.${faculty.city}`}
               description="Специалности"
             />
             <List>

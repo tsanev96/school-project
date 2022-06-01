@@ -15,6 +15,7 @@ export interface IFacultySchema {
     name: string;
   };
   semesters: number;
+  city: string;
 }
 
 export interface IFacultySchemaWithId extends IFacultySchema {
@@ -61,6 +62,7 @@ export const FacultySchema = new Schema<IFacultySchema>({
   ],
   university: { name: String, _id: mongoose.Types.ObjectId },
   semesters: Number,
+  city: String,
 });
 
 const Faculty = model<IFacultySchema>("Faculty", FacultySchema);

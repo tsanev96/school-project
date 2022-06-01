@@ -16,7 +16,7 @@ export const useFetchHTTP = <T>(query: string, initialData: T) => {
         if (error instanceof Error) {
           setError(error.message);
         } else {
-          setError("an expected loader occured");
+          setError("an expected error occured");
         }
         setIsLoading(false);
       }
