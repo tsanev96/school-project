@@ -18,10 +18,13 @@ import CustomSelect from "../shared/CustomSelect";
 import http from "../../network/http";
 import { useEffect } from "react";
 import BackButton from "../shared/BackButton";
+import SearchBox from "../shared/SearchBox";
+import { startsWith } from "../../utils/startsWith";
 
 const Faculties = () => {
   const [currentCity, setCurrentCity] = useState<string>("всички");
   const [university, setUniversity] = useState<University>();
+  const [searchQuery, setSearchQuery] = useState("");
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -65,7 +68,9 @@ const Faculties = () => {
         };
 
         const showFacultiesFromSpecificCities = (city: string) => {
-          if (city === "всички") {
+          if (city === "всички" && searchQuery) {
+            return data.filter((el) => startsWith(el.name, searchQuery));
+          } else if (city === "всички") {
             return data;
           }
 
@@ -75,13 +80,25 @@ const Faculties = () => {
               el.city.toLowerCase() === city.toLowerCase() &&
               facultiesInSpecificTown.push(el)
           );
+
+          if (searchQuery) {
+            return facultiesInSpecificTown.filter((el) =>
+              startsWith(el.name, searchQuery)
+            );
+          }
           return facultiesInSpecificTown;
         };
 
         const renderFacultiesFromSpecificUni = (uni: University) => {
-          const specificFaculties = data.filter(
+          let specificFaculties = data.filter(
             (el) => String(el.university._id) === uni._id
           );
+
+          if (searchQuery) {
+            specificFaculties = specificFaculties.filter((el) =>
+              startsWith(el.name, searchQuery)
+            );
+          }
 
           if (!specificFaculties.length) {
             return (
@@ -120,13 +137,21 @@ const Faculties = () => {
             <Wrapper>
               <Grid container justifyContent="space-between">
                 <Typography variant="h4">Факултети</Typography>
-                <>
-                  <CustomSelect
-                    label="Градове"
-                    data={cities}
-                    onHandleCityChange={handleCityChange}
-                  />
-                </>
+                <Typography>
+                  <Grid container direction="row">
+                    <CustomSelect
+                      label="Градове"
+                      data={cities}
+                      onHandleCityChange={handleCityChange}
+                    />
+                    <Typography style={{ marginLeft: 10 }}>
+                      <SearchBox
+                        onChange={setSearchQuery}
+                        placeholder="търси факултет.."
+                      />
+                    </Typography>
+                  </Grid>
+                </Typography>
               </Grid>
               <ListItems data={facultiesToDisplay} />
             </Wrapper>
