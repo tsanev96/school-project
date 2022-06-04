@@ -1,6 +1,6 @@
 import { FacultiesContext } from "../../context/faculties";
 import ListItems from "../shared/ListItems";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import NotFound from "../NotFound/NotFound";
 import {
   Grid,
@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import { University } from "../../types/university";
 import Wrapper from "../shared/Wrapper";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { IFacultySchemaWithId } from "../../../../server/src/models/faculty";
 import CustomSelect from "../shared/CustomSelect";
 import http from "../../network/http";
@@ -27,6 +27,8 @@ const Faculties = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const location = useLocation();
   const navigate = useNavigate();
+
+  const faculties = useContext(FacultiesContext);
 
   const querySearch = decodeURIComponent(location.search.substring(1));
   const parts = querySearch.split("=");
@@ -46,126 +48,120 @@ const Faculties = () => {
     fetchUniversity();
   }, [universityId]);
 
-  return (
-    <FacultiesContext.Consumer>
-      {(data) => {
-        const setFacultyCities = () => {
-          const cities: string[] = [];
-          data.forEach(
-            (el) =>
-              !cities.includes(el.city.toLowerCase()) &&
-              cities.push(el.city.toLowerCase())
-          );
-          cities.unshift("всички");
-          return cities;
-        };
+  const setFacultyCities = () => {
+    const cities: string[] = [];
+    faculties.forEach(
+      (el) =>
+        !cities.includes(el.city.toLowerCase()) &&
+        cities.push(el.city.toLowerCase())
+    );
+    cities.unshift("всички");
+    return cities;
+  };
 
-        const cities = setFacultyCities();
+  const cities = setFacultyCities();
 
-        const handleCityChange = (city: string) => {
-          setCurrentCity(city);
-          showFacultiesFromSpecificCities(city);
-        };
+  const handleCityChange = (city: string) => {
+    setCurrentCity(city);
+    showFacultiesFromSpecificCities(city);
+  };
 
-        const showFacultiesFromSpecificCities = (city: string) => {
-          if (city === "всички" && searchQuery) {
-            return data.filter((el) => startsWith(el.name, searchQuery));
-          } else if (city === "всички") {
-            return data;
-          }
+  const showFacultiesFromSpecificCities = (city: string) => {
+    if (city === "всички" && searchQuery) {
+      return faculties.filter((el) => startsWith(el.name, searchQuery));
+    } else if (city === "всички") {
+      return faculties;
+    }
 
-          const facultiesInSpecificTown: IFacultySchemaWithId[] = [];
-          data.forEach(
-            (el) =>
-              el.city.toLowerCase() === city.toLowerCase() &&
-              facultiesInSpecificTown.push(el)
-          );
+    const facultiesInSpecificTown: IFacultySchemaWithId[] = [];
+    faculties.forEach(
+      (el) =>
+        el.city.toLowerCase() === city.toLowerCase() &&
+        facultiesInSpecificTown.push(el)
+    );
 
-          if (searchQuery) {
-            return facultiesInSpecificTown.filter((el) =>
-              startsWith(el.name, searchQuery)
-            );
-          }
-          return facultiesInSpecificTown;
-        };
+    if (searchQuery) {
+      return facultiesInSpecificTown.filter((el) =>
+        startsWith(el.name, searchQuery)
+      );
+    }
+    return facultiesInSpecificTown;
+  };
 
-        const renderFacultiesFromSpecificUni = (uni: University) => {
-          let specificFaculties = data.filter(
-            (el) => String(el.university._id) === uni._id
-          );
+  const renderFacultiesFromSpecificUni = (uni: University) => {
+    let specificFaculties = faculties.filter(
+      (el) => String(el.university._id) === uni._id
+    );
 
-          if (searchQuery) {
-            specificFaculties = specificFaculties.filter((el) =>
-              startsWith(el.name, searchQuery)
-            );
-          }
+    if (searchQuery) {
+      specificFaculties = specificFaculties.filter((el) =>
+        startsWith(el.name, searchQuery)
+      );
+    }
 
-          if (!specificFaculties.length) {
-            return (
-              <>
-                <BackButton
-                  onBack={() => navigate("../universities", { replace: true })}
-                />
-                <NotFound />;
-              </>
-            );
-          }
+    if (!specificFaculties.length) {
+      return (
+        <>
+          <BackButton
+            onBack={() => navigate("../universities", { replace: true })}
+          />
+          <NotFound />;
+        </>
+      );
+    }
 
-          return (
-            <Wrapper>
-              <BackButton
-                onBack={() => navigate("../universities", { replace: true })}
+    return (
+      <Wrapper>
+        <BackButton
+          onBack={() => navigate("../universities", { replace: true })}
+        />
+        <Typography variant="h4">{uni.name}</Typography>
+        <List>
+          {specificFaculties.map((el) => (
+            <ListItem key={el.name} disablePadding>
+              <ListItemButton onClick={() => navigate(el._id)}>
+                <ListItemText>{el.name}</ListItemText>
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+      </Wrapper>
+    );
+  };
+
+  const facultiesToDisplay = showFacultiesFromSpecificCities(currentCity);
+
+  const renderAllFaculties = () => {
+    return (
+      <Wrapper>
+        <Grid container justifyContent="space-between">
+          <Typography variant="h4">Факултети</Typography>
+          <Typography>
+            <Grid container direction="row">
+              <CustomSelect
+                label="Градове"
+                data={cities}
+                onHandleCityChange={handleCityChange}
               />
-              <Typography variant="h4">{uni.name}</Typography>
-              <List>
-                {specificFaculties.map((el) => (
-                  <ListItem key={el.name} disablePadding>
-                    <ListItemButton onClick={() => navigate(el._id)}>
-                      <ListItemText>{el.name}</ListItemText>
-                    </ListItemButton>
-                  </ListItem>
-                ))}
-              </List>
-            </Wrapper>
-          );
-        };
+              <Typography style={{ marginLeft: 10 }}>
+                <SearchBox
+                  onChange={setSearchQuery}
+                  placeholder="търси факултет.."
+                />
+              </Typography>
+            </Grid>
+          </Typography>
+        </Grid>
+        <ListItems data={facultiesToDisplay} />
+      </Wrapper>
+    );
+  };
 
-        const facultiesToDisplay = showFacultiesFromSpecificCities(currentCity);
+  if (university && universityId) {
+    return renderFacultiesFromSpecificUni(university);
+  }
 
-        const renderAllFaculties = () => {
-          return (
-            <Wrapper>
-              <Grid container justifyContent="space-between">
-                <Typography variant="h4">Факултети</Typography>
-                <Typography>
-                  <Grid container direction="row">
-                    <CustomSelect
-                      label="Градове"
-                      data={cities}
-                      onHandleCityChange={handleCityChange}
-                    />
-                    <Typography style={{ marginLeft: 10 }}>
-                      <SearchBox
-                        onChange={setSearchQuery}
-                        placeholder="търси факултет.."
-                      />
-                    </Typography>
-                  </Grid>
-                </Typography>
-              </Grid>
-              <ListItems data={facultiesToDisplay} />
-            </Wrapper>
-          );
-        };
-
-        if (university && universityId) {
-          return renderFacultiesFromSpecificUni(university);
-        }
-
-        return renderAllFaculties();
-      }}
-    </FacultiesContext.Consumer>
-  );
+  return renderAllFaculties();
 };
 
 export default Faculties;
