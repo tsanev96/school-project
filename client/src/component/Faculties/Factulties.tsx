@@ -13,7 +13,6 @@ import {
 import { University } from "../../types/university";
 import Wrapper from "../shared/Wrapper";
 import { useContext, useState } from "react";
-import { IFacultySchemaWithId } from "../../../../server/src/models/faculty";
 import CustomSelect from "../shared/CustomSelect";
 import http from "../../network/http";
 import { useEffect } from "react";
@@ -73,11 +72,8 @@ const Faculties = () => {
       return faculties;
     }
 
-    const facultiesInSpecificTown: IFacultySchemaWithId[] = [];
-    faculties.forEach(
-      (el) =>
-        el.city.toLowerCase() === city.toLowerCase() &&
-        facultiesInSpecificTown.push(el)
+    const facultiesInSpecificTown = faculties.filter(
+      (el) => el.city.toLowerCase() === city.toLowerCase()
     );
 
     if (searchQuery) {
@@ -110,6 +106,7 @@ const Faculties = () => {
       );
     }
 
+    console.log("specific", specificFaculties);
     return (
       <Wrapper>
         <BackButton
@@ -132,6 +129,7 @@ const Faculties = () => {
   const facultiesToDisplay = showFacultiesFromSpecificCities(currentCity);
 
   const renderAllFaculties = () => {
+    console.log("all", facultiesToDisplay);
     return (
       <Wrapper>
         <Grid container justifyContent="space-between">

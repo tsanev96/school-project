@@ -11,13 +11,13 @@ const ListItems = <T extends { name: string; _id: string }>({
   children,
 }: IListItems<T>) => {
   const navigate = useNavigate();
-
+  console.log("data", data);
   return (
     <>
       {children}
       <List>
-        {data.map((el) => (
-          <ListItem key={el.name} disablePadding>
+        {data.map((el, index) => (
+          <ListItem key={el.name + index} disablePadding>
             <ListItemButton onClick={() => navigate(el._id)}>
               <ListItemText>{el.name}</ListItemText>
             </ListItemButton>
